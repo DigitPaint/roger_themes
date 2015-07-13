@@ -31,9 +31,9 @@ module RogerThemes
 
         # Get files from html path
         files = Dir.glob("../html/#{files_glob}").map{ |f| f.sub("../html/", "") }
-
-        puts files.inspect
         files.reject!{|c| @options[:excludes].detect{|e| e.match(c) } }
+
+        release.debug self, "Copying theme files #{files.inspect}"
 
         themes.each do |theme, theme_dir|
           mkdir_p theme_dir
