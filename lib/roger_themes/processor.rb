@@ -8,6 +8,7 @@ module RogerThemes
         default_theme: 'default',
         excludes: [
           /\A_doc\/.*/,
+          /\Athemes\/.*/,
           "index.html"
         ],
         shared_folders: ["images", "fonts"]
