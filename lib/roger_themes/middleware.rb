@@ -6,7 +6,8 @@ module RogerThemes
       @app = app
 
       defaults = {
-        default_theme: 'default'
+        default_theme: "default",
+        shared_folders: ["images", "fonts"]
       }
 
       @options = defaults.update(options)
@@ -28,16 +29,14 @@ module RogerThemes
 
       # Fallback for shared images
       unless ret[0] == 200
-        r = /\A\/themes\/([^\/]+)\/rel\/images\//
-        if asset = path[r, 1]
-          orig_path = env["PATH_INFO"].dup
-          env["PATH_INFO"].sub!(r, "/images/")
+
+        asset_type = @options[:shared_folders].detect do |folder|
+          path[/\A\/themes\/([^\/]+)\/rel\/#{folder}\//, 1]
         end
 
-        r = /\A\/themes\/([^\/]+)\/rel\/fonts\//
-        if asset = path[r, 1]
+        if asset_type
           orig_path = env["PATH_INFO"].dup
-          env["PATH_INFO"].sub!(r, "/fonts/")
+          env["PATH_INFO"].sub!(/\A\/themes\/([^\/]+)\/rel/, "")
         end
 
         ret = @app.call(env)

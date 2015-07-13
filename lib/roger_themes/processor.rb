@@ -9,7 +9,8 @@ module RogerThemes
         excludes: [
           /\A_doc\/.*/,
           "index.html"
-        ]
+        ],
+        shared_folders: ["images", "fonts"]
       }
 
       @options = defaults.update(options)
@@ -66,12 +67,11 @@ module RogerThemes
         #
         # Behavior must be simialir to the rewrite in processor
         Dir.chdir(release.build_path + "themes/#{theme}") do
-          cp_r release.build_path + "images", "rel/"
-          cp_r release.build_path + "fonts" , "rel/"
+          @options[:shared_folders].each do |folder|
+            cp_r release.build_path + folder, "rel/"
+          end
         end
       end
-
     end
-
   end
 end
