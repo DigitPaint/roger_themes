@@ -17,7 +17,8 @@ module RogerThemes
     end
 
     def call(release, options)
-      options = @options.dup.update(options)
+      @options = @options.dup.update(options)
+
       files_glob = "**/*{.html,.html.erb}"
 
       themes = []
@@ -31,7 +32,7 @@ module RogerThemes
         files = Dir.glob("../html/#{files_glob}").map{ |f| f.sub("../html/", "") }
 
         puts files.inspect
-        files.reject!{|c| options[:excludes].detect{|e| e.match(c) } }
+        files.reject!{|c| @options[:excludes].detect{|e| e.match(c) } }
 
         themes.each do |theme, theme_dir|
           mkdir_p theme_dir
@@ -66,7 +67,9 @@ module RogerThemes
         # the zip size does increase
         #
         # Behavior must be simialir to the rewrite in processor
+        release.debug self, "Starting assets copy for #{@options[:shared_folders]}"
         Dir.chdir(release.build_path + "themes/#{theme}") do
+          release.debug self, "Copying assets for #{theme}"
           @options[:shared_folders].each do |folder|
             cp_r release.build_path + folder, "rel/"
           end
