@@ -48,6 +48,10 @@ mockup.release do |r|
 
 ## Changelog
 
+### v0.1.2
+
+* Fix dir merging when a local folder exists
+
 ### v0.1.1
 
 * Update processor

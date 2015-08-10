@@ -1,3 +1,4 @@
+require "roger/release"
 require "roger/release/processors/mockup"
 
 module RogerThemes
@@ -17,7 +18,7 @@ module RogerThemes
       @options = defaults.update(options)
     end
 
-    def call(release, options)
+    def call(release, options = {})
       @options = @options.dup.update(options)
 
       files_glob = "**/*{.html,.html.erb}"
@@ -74,7 +75,9 @@ module RogerThemes
         Dir.chdir(release.build_path + "themes/#{theme}") do
           release.debug self, "Copying assets for #{theme}"
           shared_folders.folders.each do |copy_from, copy_to|
-            cp_r release.build_path + copy_from, copy_to
+            if File.directory? release.build_path + copy_from
+              cp_r release.build_path + "#{copy_from}/.", copy_to
+            end
           end
         end
       end
