@@ -46,6 +46,22 @@ mockup.release do |r|
     r.finalize RogerThemes::XcFinalizer
 ```
 
+## Changelog
+
+### v0.1.0
+
+* `:shared_folders` now also takes a hash to enable nested theme folders
+  ```
+    {
+        shared_folders: {"images" => "rel/images"}
+    }
+  ```
+* Remove `rel` from shared_folders
+
+### v0.0.1 (never released)
+
+* Initial release
+
 ## Contributing
 
 1. Fork it ( https://github.com/digitpaint/roger_themes/fork )

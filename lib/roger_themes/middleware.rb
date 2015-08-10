@@ -1,4 +1,4 @@
-# require rack utils
+require File.dirname(__FILE__) + "/shared_folders"
 
 module RogerThemes
   class Middleware
@@ -11,6 +11,7 @@ module RogerThemes
       }
 
       @options = defaults.update(options)
+      @shared_folders = SharedFolders.new(@options[:shared_folders])
     end
 
     def call(env)
@@ -30,13 +31,12 @@ module RogerThemes
       # Fallback for shared images
       unless ret[0] == 200
 
-        asset_type = @options[:shared_folders].detect do |folder|
-          path[/\A\/themes\/([^\/]+)\/rel\/#{folder}\//, 1]
-        end
+        shared_path = @shared_folders.local_to_shared_path(path)
 
-        if asset_type
+        if shared_path
+          # Store so we can restore later
           orig_path = env["PATH_INFO"].dup
-          env["PATH_INFO"].sub!(/\A\/themes\/([^\/]+)\/rel/, "")
+          env["PATH_INFO"] = shared_path
         end
 
         ret = @app.call(env)

@@ -69,10 +69,12 @@ module RogerThemes
         #
         # Behavior must be simialir to the rewrite in processor
         release.debug self, "Starting assets copy for #{@options[:shared_folders]}"
+        shared_folders = SharedFolders.new(@options[:shared_folders])
+
         Dir.chdir(release.build_path + "themes/#{theme}") do
           release.debug self, "Copying assets for #{theme}"
-          @options[:shared_folders].each do |folder|
-            cp_r release.build_path + folder, "rel/"
+          shared_folders.folders.each do |copy_from, copy_to|
+            cp_r release.build_path + copy_from, copy_to
           end
         end
       end
