@@ -22,9 +22,9 @@ And then execute:
 
 ## Todo
 
-- [] Add tests
-- [] Complete documentation (especially on how themes work by default)
-- [] Add theme selector views for usage in table of content
+- Add tests
+- Complete documentation (especially on how themes work by default)
+- Add theme selector views for usage in table of content
 
 ## Usage
 
