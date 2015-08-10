@@ -1,5 +1,7 @@
 module RogerThemes
   class SharedFolders
+    attr_reader :folders
+
     def initialize(folders)
       # To allow shared_folders to passed in as array
       # in cases the mapping becomes 1:1 update shared_folders to Hash

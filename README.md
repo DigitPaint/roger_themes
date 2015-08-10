@@ -48,6 +48,10 @@ mockup.release do |r|
 
 ## Changelog
 
+### v0.1.1
+
+* Update processor
+
 ### v0.1.0
 
 * `:shared_folders` now also takes a hash to enable nested theme folders
