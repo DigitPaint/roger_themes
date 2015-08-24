@@ -1,3 +1,5 @@
+require "roger_themes"
+
 require "simplecov"
 SimpleCov.start
 

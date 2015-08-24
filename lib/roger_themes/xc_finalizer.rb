@@ -1,3 +1,5 @@
+require "roger/release"
+
 module RogerThemes
   class XcFinalizer < Roger::Release::Finalizers::Base
     attr_reader :release

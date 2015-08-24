@@ -1,5 +1,8 @@
 require "roger_themes/version"
 
+require "fileutils"
+include FileUtils
+
 module RogerThemes
   # Your code goes here...
 end
