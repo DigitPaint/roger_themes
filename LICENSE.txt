@@ -1,4 +1,4 @@
-Copyright (c) 2015 Edwin van der Graaf
+Copyright (c) 2015 Digitpaint (Edwin van der Graaf, Flurin Egger)
 
 MIT License
 

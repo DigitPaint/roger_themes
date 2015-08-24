@@ -6,8 +6,8 @@ require "roger_themes/version"
 Gem::Specification.new do |spec|
   spec.name          = "roger_themes"
   spec.version       = RogerThemes::VERSION
-  spec.authors       = ["Edwin van der Graaf"]
-  spec.email         = ["edwin@digitpaint.nl"]
+  spec.authors       = ["Edwin van der Graaf", "Flurin Egger"]
+  spec.email         = ["edwin@digitpaint.nl", "flurin@digitpaint.nl"]
   spec.summary       = "Create themes and release them as static site"
   spec.homepage      = "https://github.com/digitpaint/roger_themes"
   spec.license       = "MIT"
