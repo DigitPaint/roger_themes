@@ -1,3 +1,0 @@
-# Don't give me rails thingies
-AllCops:
-  RunRailsCops: false
