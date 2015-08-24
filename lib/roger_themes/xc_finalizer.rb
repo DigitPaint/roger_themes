@@ -22,13 +22,11 @@ module RogerThemes
 
       dirs = Dir.glob(options[:source_path].to_s)
 
-      releasename = [(options[:prefix] || "html"), release.scm.version].join("-")
-
-      zipdir = options[:target_path]
+      zipdir = Pathname.new(options[:target_path])
       FileUtils.mkdir_p(zipdir) unless zipdir.exist?
 
       dirs.each do |dir|
-        name = File.basename(dir)
+        name = [options[:prefix], File.basename(dir), release.scm.version].compact.join("-")
         path = Pathname.new(dir)
 
         begin
@@ -38,7 +36,7 @@ module RogerThemes
         end
 
         ::Dir.chdir(path) do
-          `#{options[:zip]} -r -9 "#{zipdir + name}-#{release.scm.version}.zip" rel js`
+          `#{options[:zip]} -r -9 "#{zipdir + name}.zip" rel js`
         end
 
         release.log(self, "Creating zip for custom #{name}")
