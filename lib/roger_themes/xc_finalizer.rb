@@ -8,13 +8,13 @@ module RogerThemes
     #
     # @param [Release] release
     # @param [Hash] options Options hash
-    # @option options [String] :prefix ("html") The name to prefix the zipfile with (before version)
+    # @option options [String, nil] :prefix (nil) The name to prefix the zipfile with (before version)
     # @option options [String] :zip ("zip") The ZIP command to use
     # @option options [String] :source_path (release.build_path + "themes/*") The paths to zip
     # @option options [String] :target_path (release.build_path + "themes/zips") The path to the zips
     def call(release, options = {})
       options = {
-        :prefix => "html",
+        :prefix => nil,
         :zip => "zip",
         :source_path => release.build_path + "themes/*",
         :target_path => release.build_path + "themes/zips"
