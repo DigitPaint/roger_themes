@@ -75,7 +75,7 @@ module RogerThemes
         Dir.chdir(release.build_path + "themes/#{theme}") do
           release.debug self, "Copying assets for #{theme}"
           shared_folders.folders.each do |copy_from, copy_to|
-            if File.directory? release.build_path + copy_from
+            if File.directory? release.build_path + copy_from.to_s
               cp_r release.build_path + "#{copy_from}/.", copy_to
             end
           end
