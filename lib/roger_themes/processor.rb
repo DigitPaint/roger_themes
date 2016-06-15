@@ -57,6 +57,8 @@ module RogerThemes
             "MOCKUP_PROJECT" => release.project
           }
         })
+
+        release.log self, "Running mockup processor for theme: #{theme}"
         mockup_processor.call(release)
 
         # cp html/images and html/fonts => html/themes/**/images && html/themes/**/fonts
