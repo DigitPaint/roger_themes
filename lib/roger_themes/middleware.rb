@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + "/shared_folders"
 
 module RogerThemes
   class Middleware
+    attr_accessor :project
+
     def initialize(app, options = {})
       @app = app
 
@@ -29,7 +31,7 @@ module RogerThemes
       ret = @app.call(env)
 
       # Fallback for shared images
-      unless ret[0] == 200
+      if ret[0] == 404
 
         shared_path = @shared_folders.local_to_shared_path(path)
 
