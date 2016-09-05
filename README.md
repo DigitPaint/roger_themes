@@ -48,6 +48,10 @@ mockup.release do |r|
 
 ## Changelog
 
+### v0.4.0
+
+* Resolve issue around shared paths (#1)
+
 ### v0.1.2
 
 * Fix dir merging when a local folder exists
