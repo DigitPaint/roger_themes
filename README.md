@@ -48,6 +48,9 @@ mockup.release do |r|
 
 ## Changelog
 
+### v0.5.0
+* Make compatible with Roger 1.7
+
 ### v0.4.0
 
 * Resolve issue around shared paths (#1)
