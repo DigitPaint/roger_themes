@@ -50,16 +50,16 @@ module RogerThemes
       themes.each do |theme, theme_dir|
         match_glob = theme_dir + files_glob
 
-        mockup_processor = Roger::Release::Processors::Mockup.new({
+        mockup_processor = Roger::Release::Processors::Mockup.new()
+
+        release.log self, "Running mockup processor for theme: #{theme}"
+        mockup_processor.call(release, {
           match: [match_glob],
           env: {
             "SITE_THEME" => theme,
             "MOCKUP_PROJECT" => release.project
           }
         })
-
-        release.log self, "Running mockup processor for theme: #{theme}"
-        mockup_processor.call(release)
 
         # cp html/images and html/fonts => html/themes/**/images && html/themes/**/fonts
         # if not in target dir
