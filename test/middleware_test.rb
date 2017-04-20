@@ -48,11 +48,25 @@ module RogerThemes
 
     # Theme links work by means of rewriting the path info i.e.
     # to render and setting the env[site_theme] var
-    def test_theme_links
+    def test_main_theme_url
       @request.get("/themes/my-awesome-theme/theme/elements/index.html")
       assert_equal @app.call_stack.length, 1
-      assert_equal @app.call_stack[0]["SITE_THEME"], "my-awesome-theme"
+      assert_equal @app.call_stack[0]["MAIN_THEME"].name, "my-awesome-theme"
       assert_equal @app.call_stack[0]["PATH_INFO"], "elements/index.html"
+    end
+
+    def test_sub_theme_url
+      @request.get("/themes/my-awesome-theme.my-sub-theme/theme/elements/index.html")
+      assert_equal @app.call_stack.length, 1
+      assert_equal @app.call_stack[0]["MAIN_THEME"].name, "my-awesome-theme"
+      assert_equal @app.call_stack[0]["SUB_THEME"].name, "my-sub-theme"
+      assert_equal @app.call_stack[0]["PATH_INFO"], "elements/index.html"
+    end
+
+    def test_local_main_theme_url
+      @request.get("/themes/my-awesome-theme/index.html")
+      assert_equal @app.call_stack.length, 1
+      assert_equal @app.call_stack[0]["PATH_INFO"], "/themes/my-awesome-theme/index.html"
     end
 
     def test_shared_resources

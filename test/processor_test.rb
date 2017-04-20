@@ -20,6 +20,7 @@ module RogerThemes
 
     def test_processor_can_be_called
       assert(@processor.respond_to?(:call))
+      assert(@processor.respond_to?(:perform))
     end
 
     def test_processor_copies_shared_folders
@@ -50,7 +51,9 @@ module RogerThemes
     protected
 
     def read_file_in_build(path)
-      File.read((@release.build_path + path).to_s)
+      full_path = (@release.build_path + path).to_s
+      assert File.exist?(full_path)
+      File.read(full_path)
     end
   end
 end

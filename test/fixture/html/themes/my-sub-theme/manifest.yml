@@ -1,0 +1,4 @@
+title: "My sub theme"
+type: "sub"
+mains:
+  - "my-cool-theme"

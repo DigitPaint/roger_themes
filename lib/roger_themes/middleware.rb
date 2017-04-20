@@ -17,15 +17,23 @@ module RogerThemes
     end
 
     def call(env)
+      project = env["roger.project"] || self.project # self.project is for tests.
+      themes_path = project.html_path + RogerThemes.themes_path
+
       path = ::Rack::Utils.unescape(env["PATH_INFO"])
-      r = /\A\/themes\/([^\/]+)\/theme\//
+      r = /\A\/#{Regexp.escape(RogerThemes.themes_path)}\/([^\/]+)\/theme\//
+
+      env["SUB_THEME"] = nil
+
       if theme = path[r,1]
+        main_theme, sub_theme = theme.split(".", 2)
         orig_path = env["PATH_INFO"].dup
-        env["SITE_THEME"] = theme
+        env["MAIN_THEME"] = Theme.new(main_theme, themes_path)
+        env["SUB_THEME"] = Theme.new(sub_theme, themes_path) if sub_theme
         env["PATH_INFO"].sub!(r,"")
       else
         # Set default theme
-        env["SITE_THEME"] = @options[:default_theme]
+        env["MAIN_THEME"] = Theme.new(@options[:default_theme], themes_path)
       end
 
       ret = @app.call(env)

@@ -48,6 +48,12 @@ mockup.release do |r|
 
 ## Changelog
 
+### v0.6.0
+* Attention! `env["SITE_THEME"]` has been renamed to `env["MAIN_THEME"]`. Also it will now return a `RogerThemes::Theme` object instead of a string. The old behaviour can be restored by replacing `env["SITE_THEME"]` with `env["MAIN_THEME"].name`
+* Add compatibility for subthemes
+* Add support for manifest files
+* Add datastructures for themes and assets
+
 ### v0.5.0
 * Make compatible with Roger 1.7
 
