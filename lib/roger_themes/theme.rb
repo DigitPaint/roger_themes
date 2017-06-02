@@ -55,6 +55,12 @@ module RogerThemes
       @assets = manifest[:assets].map {|asset_data| Asset.new(asset_data, self) }
     end
 
+    # Wether or not we take the toplevel templates
+    # and render them as our own.
+    def shared_templates
+      manifest[:shared_templates]
+    end
+
     def sub_themes
       self.class.sub_themes_for(name, @themes_path)
     end

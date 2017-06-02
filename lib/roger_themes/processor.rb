@@ -61,11 +61,13 @@ module RogerThemes
       template_files = Dir.glob(release.project.html_path + options[:template_glob]).map{ |f| f.sub(release.project.html_path.to_s + "/", "") }
       template_files.reject!{|c| options[:excludes].detect{|e| e.match(c) } }
 
-      release.debug self, "Copying theme files #{template_files.inspect}"
 
       main_themes.each do |main_theme|
-        copy_templates_to_theme(template_files, release.project.html_path, main_theme.html_path)
-        mockup(main_theme.html_path, { "MAIN_THEME" => main_theme })
+        if main_theme.shared_templates
+          release.debug self, "Copying theme files #{template_files.inspect}"
+          copy_templates_to_theme(template_files, release.project.html_path, main_theme.html_path)
+        end
+        mockup(main_theme.path, { "MAIN_THEME" => main_theme })
         copy_shared_to_theme(main_theme, main_theme.path)
 
         # Copy sub theme to MAINTHEME.SUBTHEME
@@ -76,7 +78,7 @@ module RogerThemes
           copy_templates_to_theme(template_files, release.project.html_path, sub_theme_html_path)
 
           # Run mockup
-          mockup(sub_theme_html_path, { "MAIN_THEME" => main_theme, "SUB_THEME" => sub_theme })
+          mockup(sub_theme.path_in_main(main_theme.name), { "MAIN_THEME" => main_theme, "SUB_THEME" => sub_theme })
         end
       end
 

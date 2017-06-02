@@ -7,6 +7,7 @@ module RogerThemes
       title: nil,
       type: "main",
       mains: nil,
+      shared_templates: true,
       assets: []
     }
 

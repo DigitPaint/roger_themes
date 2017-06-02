@@ -21,19 +21,27 @@ module RogerThemes
       themes_path = project.html_path + RogerThemes.themes_path
 
       path = ::Rack::Utils.unescape(env["PATH_INFO"])
-      r = /\A\/#{Regexp.escape(RogerThemes.themes_path)}\/([^\/]+)\/theme\//
+
+      # Regexp to match the theme url
+      theme_url_regex = /\A\/#{Regexp.escape(RogerThemes.themes_path)}\/([^\/]+)\//
+      shared_url_regex = Regexp.new(theme_url_regex.to_s + "theme\/")
 
       env["SUB_THEME"] = nil
 
-      if theme = path[r,1]
+      # Set the theme ENV paramaters
+      if theme = path[theme_url_regex,1]
         main_theme, sub_theme = theme.split(".", 2)
         orig_path = env["PATH_INFO"].dup
         env["MAIN_THEME"] = Theme.new(main_theme, themes_path)
         env["SUB_THEME"] = Theme.new(sub_theme, themes_path) if sub_theme
-        env["PATH_INFO"].sub!(r,"")
       else
         # Set default theme
         env["MAIN_THEME"] = Theme.new(@options[:default_theme], themes_path)
+      end
+
+      # See if we have to render shared paths on /THEMES_PATH/THEME_NAME/theme/*
+      if env["MAIN_THEME"].shared_templates && shared_url_regex.match(path)
+        env["PATH_INFO"].sub!(shared_url_regex,"")
       end
 
       ret = @app.call(env)
