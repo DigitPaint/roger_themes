@@ -18,7 +18,6 @@ module RogerThemes
 
     def self.sub_themes_for(main_theme_name, themes_path)
       all(themes_path).select{|theme| theme.type == "sub" && theme.compatible_with_main?(main_theme_name) }
-
     end
 
     def self.main_themes(themes_path)

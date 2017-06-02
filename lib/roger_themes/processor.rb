@@ -19,7 +19,6 @@ module RogerThemes
     end
 
     def copy_templates_to_theme(template_files, template_root, theme_path)
-      puts "--> #{template_root} - #{theme_path}"
       mkdir_p theme_path
 
       template_files.each do |file|
