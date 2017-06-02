@@ -48,6 +48,11 @@ mockup.release do |r|
 
 ## Changelog
 
+### v0.7.0
+* Allow config of shard folders in manifest files
+* Allow disabling of shared templates in manifest files
+* Make sure all templates in a theme folder are processed with the theme env variables set.
+
 ### v0.6.0
 * Attention! `env["SITE_THEME"]` has been renamed to `env["MAIN_THEME"]`. Also it will now return a `RogerThemes::Theme` object instead of a string. The old behaviour can be restored by replacing `env["SITE_THEME"]` with `env["MAIN_THEME"].name`
 * Add compatibility for subthemes
