@@ -29,11 +29,15 @@ module RogerThemes
     end
 
     def copy_shared_to_theme(theme, theme_path)
-      release.debug self, "Copying shared assets from #{options[:shared_folders]} for #{theme.name}"
-      shared_folders = SharedFolders.new(options[:shared_folders])
+      shared_folder_paths = theme.shared_folders || options[:shared_folders]
+      return if shared_folder_paths.empty?
+
+      release.debug self, "Copying shared assets from #{shared_folder_paths} for #{theme.name}"
+      shared_folders = SharedFolders.new(shared_folder_paths)
 
       shared_folders.folders.each do |source, target|
         if File.directory? release.build_path + source.to_s
+          mkdir_p File.dirname(theme_path + target)
           cp_r release.build_path + "#{source}/.", theme_path + target
         end
       end

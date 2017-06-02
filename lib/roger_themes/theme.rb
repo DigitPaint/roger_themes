@@ -61,6 +61,12 @@ module RogerThemes
       manifest[:shared_templates]
     end
 
+    # Shared folders to use. Will default to the
+    # globally set shared folders if nil or false
+    def shared_folders
+      manifest[:shared_folders]
+    end
+
     def sub_themes
       self.class.sub_themes_for(name, @themes_path)
     end

@@ -13,7 +13,6 @@ module RogerThemes
       }
 
       @options = defaults.update(options)
-      @shared_folders = SharedFolders.new(@options[:shared_folders])
     end
 
     def call(env)
@@ -48,8 +47,9 @@ module RogerThemes
 
       # Fallback for shared images
       if ret[0] == 404
+        shared_folders = SharedFolders.new(env["MAIN_THEME"].shared_folders || @options[:shared_folders])
 
-        shared_path = @shared_folders.local_to_shared_path(path)
+        shared_path = shared_folders.local_to_shared_path(path)
 
         if shared_path
           # Store so we can restore later
