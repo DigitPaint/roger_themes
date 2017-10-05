@@ -8,6 +8,7 @@ module RogerThemes
       {
         :prefix => nil,
         :zip => "zip",
+        :sources => ['rel', 'js'],
         :source_path => release.build_path + "themes/*",
         :target_path => release.build_path + "themes/zips"
       }
@@ -40,7 +41,8 @@ module RogerThemes
         end
 
         ::Dir.chdir(path) do
-          `#{options[:zip]} -r -9 "#{zipdir + name}.zip" rel js`
+          zipfiles = options[:sources].map { |a| Shellwords.escape(a) }.join(' ')
+          `#{options[:zip]} -r -9 "#{zipdir + name}.zip" #{zipfiles}`
         end
 
         release.log(self, "Creating zip for custom #{name}")
