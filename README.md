@@ -48,6 +48,9 @@ mockup.release do |r|
 
 ## Changelog
 
+### v0.8.0
+* Make XC zip finalizer contents configurable
+
 ### v0.7.0
 * Allow config of shard folders in manifest files
 * Allow disabling of shared templates in manifest files
