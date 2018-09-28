@@ -16,6 +16,7 @@ module RogerThemes
 
 end
 
+require "roger_themes/asset_writer"
 require "roger_themes/manifest"
 require "roger_themes/asset"
 require "roger_themes/theme"
